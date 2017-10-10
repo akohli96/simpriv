@@ -1,4 +1,4 @@
-before_script: cd utsav3/SimPriv-API
+before_script: cd $SimPriv-API/
 
 language: java
 
