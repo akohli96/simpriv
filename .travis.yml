@@ -5,4 +5,17 @@ script: gradle build
 
 language: java
 
+before_cache:
+  - rm -f  simpriv-api.gradle/caches/modules-2/modules-2.lock
+  - rm -fr simpriv-api/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - simpriv-api/.gradle/caches/
+    - simpriv-api/.gradle/wrapper/
+
+sudo: false
+addons:
+  apt:
+    packages:
+- oracle-java8-installer
       
