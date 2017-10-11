@@ -1,6 +1,7 @@
 before_script: cd simppriv-api/
 
-before_install: - chmod +x gradlew
+before_install: 
+  - chmod +x gradlew
 
 language: java
 
