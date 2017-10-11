@@ -8,8 +8,8 @@ before_cache:
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+    - simppriv-api/.gradle/caches/
+    - simppriv-api/.gradle/wrapper/
 
 sudo: false
 addons:
