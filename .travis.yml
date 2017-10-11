@@ -4,7 +4,7 @@ before_script:
 language: java
 
 before_cache:
-  - rm -f  simppriv-api.gradle/caches/modules-2/modules-2.lock
+  - rm -f  simppriv-api/.gradle/caches/modules-2/modules-2.lock
   - rm -fr simppriv-api/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
