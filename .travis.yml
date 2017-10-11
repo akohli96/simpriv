@@ -12,4 +12,10 @@ cache:
   directories:
     - simpriv-api/.gradle/caches/
     - simpriv-api/.gradle/wrapper/
+    
+sudo: false
+addons:
+  apt:
+    packages:
+- oracle-java8-installer
 
