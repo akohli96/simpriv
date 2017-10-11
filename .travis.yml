@@ -1,6 +1,8 @@
 before_script: 
   - cd simppriv-api/
 
+script: gradle build
+
 language: java
 
 before_cache:
