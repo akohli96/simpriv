@@ -1,9 +1,6 @@
 before_script: 
   - cd simppriv-api/
 
-before_install: 
-  - cd simppriv-api/ && chmod +x gradlew
-
 language: java
 
 before_cache:
