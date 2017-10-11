@@ -5,17 +5,4 @@ script: gradle build
 
 language: java
 
-before_cache:
-  - rm -f  simppriv-api/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr simppriv-api/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-    - simppriv-api/.gradle/caches/
-    - simppriv-api/.gradle/wrapper/
-
-sudo: false
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
       
