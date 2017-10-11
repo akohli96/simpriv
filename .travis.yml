@@ -1,4 +1,4 @@
-before_script: cd $simppriv-api/
+before_script: cd $SimPriv-API/simppriv-api/
 
 
 language: java
