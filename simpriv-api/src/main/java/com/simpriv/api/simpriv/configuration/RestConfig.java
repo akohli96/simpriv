@@ -1,17 +1,14 @@
-package simpriv.configuration;
+package com.simpriv.api.simpriv.configuration;
 
 import org.glassfish.jersey.server.ResourceConfig;
-
-import javax.ws.rs.ApplicationPath;
-
 import org.springframework.context.annotation.Configuration;
 
-import simpriv.rest.UserEndpointImpl;
+import javax.ws.rs.ApplicationPath;
 
 @Configuration
 @ApplicationPath("/api/v1")
 public class RestConfig extends ResourceConfig{
     public RestConfig(){
-        register(UserEndpointImpl.class);
+
     }
 }
