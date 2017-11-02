@@ -9,4 +9,5 @@ public class SimprivApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SimprivApplication.class, args);
 	}
+
 }
