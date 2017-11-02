@@ -5,12 +5,12 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.ws.Response;
 
 @Path("message")
-public interface MessageEndpoint{
+public interface SnippitEndpoint{
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    Response create();
+    Response create(@HeaderParam("private-key") String privateKey, @HeaderParam("public-key") String publicKey);
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

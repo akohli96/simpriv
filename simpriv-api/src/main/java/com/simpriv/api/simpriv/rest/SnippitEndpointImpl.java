@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 import javax.xml.ws.Response;
 
 @Component
-public class MessageEndpointImpl implements MessageEndpoint {
+public class SnippitEndpointImpl implements SnippitEndpoint {
 
     @Override
-    public Response create() {
+    public Response create(String privateKey, String publicKey) {
         /*
             Post
                 private key
