@@ -2,26 +2,22 @@ package com.simpriv.api.simpriv.utility;
 
 import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import java.security.KeyPair;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.KeyPairGenerator;
 
 @Component
 public class PairGenerator {
 
     private KeyPairGenerator keyPairGenerator;
-    private PrivateKey privateKey;
-    private PublicKey publicKey;
 
-    public KeyPairGenerator(){
-
+    @Inject
+    public PairGenerator(KeyPairGenerator keyPairGenerator)  {
+        this.keyPairGenerator=keyPairGenerator;
     }
 
-    private void initializeKeyGen(){
-        this.keyPairGenerator = KeyPairGenerator.
-    }
-    public KeyPair generatorKeyPair(){
-        KeyPair pair =
+    public KeyPair generatorKeyPair() {
+        return keyPairGenerator.generateKeyPair();
     }
 
 }

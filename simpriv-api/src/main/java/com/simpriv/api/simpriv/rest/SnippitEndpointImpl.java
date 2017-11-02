@@ -8,7 +8,7 @@ import javax.xml.ws.Response;
 public class SnippitEndpointImpl implements SnippitEndpoint {
 
     @Override
-    public Response create(String privateKey, String publicKey) {
+    public Response create(String privateKey, String publicKey, String message) {
         /*
             Post
                 private key
