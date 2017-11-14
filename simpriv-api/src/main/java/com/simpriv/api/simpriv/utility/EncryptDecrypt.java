@@ -8,67 +8,62 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.util.Base64;
+
 
 public class EncryptDecrypt {
 
     private Cipher cipher;
 
-    private static final String algorithm="RSA";
+    private static final String algorithm="AES";
 
+    private KeyRetrieval keyRetrieval;
 
-    public EncryptDecrypt() {
+    //TODO :@Inject
+    public EncryptDecrypt() throws SimPrivException {
         try {
-            init();
-        } catch ( SimPrivException e ) {
-            e.printStackTrace();
-        }
-    }
-
-    private void init() throws SimPrivException {
-        try {
+            this.keyRetrieval=new KeyRetrieval();
             this.cipher = Cipher.getInstance(algorithm);
         } catch ( NoSuchAlgorithmException | NoSuchPaddingException e ) {
             throw new SimPrivException(e);
         }
     }
 
-    public String encrypt(PublicKey publicKey, String plainText) throws SimPrivException {
+
+    public String encrypt(String plainText,String plainKey) throws SimPrivException {
+        Key key = keyRetrieval.retriveKeyFromString(plainKey);
         if(plainText.length()<1) {
             throw new SimPrivException("plainText is 0 character long");
         }
         else if(plainText == null){
             throw new SimPrivException("plainText is null");
         }
-        else if(publicKey == null){
-            throw new SimPrivException("public key is null");
+        else if(key == null){
+            throw new SimPrivException("key is null");
         }
         try {
-            this.cipher.init(Cipher.ENCRYPT_MODE,publicKey);
-            byte[] cipherText = this.cipher.doFinal(plainText.getBytes("UTF-8"));
+            this.cipher.init(Cipher.ENCRYPT_MODE,key);
+            byte[] cipherText = this.cipher.doFinal(plainText.getBytes());
             return Base64.getEncoder().encodeToString(cipherText);
-        } catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException | UnsupportedEncodingException e) {
+        } catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
             throw new SimPrivException(e);
         }
     }
 
-    public  String decrypt(PrivateKey privateKey, String cipherText) throws SimPrivException {
-        if(cipherText.length()<1) {
-            throw new SimPrivException("cipherText is 0 character long");
-        }
-        else if(cipherText == null){
+    public  String decrypt(String cipherText,String plainKey) throws SimPrivException {
+        Key key = keyRetrieval.retriveKeyFromString(plainKey);
+        if(cipherText == null){
             throw new SimPrivException("cipherText is null");
         }
         try {
-            this.cipher.init(Cipher.DECRYPT_MODE,privateKey);
+            this.cipher.init(Cipher.DECRYPT_MODE,key);
             byte[] bytes = Base64.getDecoder().decode(cipherText);
             return new String(this.cipher.doFinal(bytes),"UTF-8");
         } catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException | UnsupportedEncodingException e) {
             throw new SimPrivException(e);
         }
     }
+
 }
-//https://gist.github.com/nielsutrecht/855f3bef0cf559d8d23e94e2aecd4ede
