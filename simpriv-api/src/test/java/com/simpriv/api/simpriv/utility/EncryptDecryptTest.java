@@ -1,49 +1,35 @@
 package com.simpriv.api.simpriv.utility;
 
+import com.simpriv.api.simpriv.exception.SimPrivException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
+import java.security.Key;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Mockito.mock;
 
 public class EncryptDecryptTest {
 
-
-    private static final String passwordString = "test";
-    private static final String algorithm="RSA";
-    private static final int keySize=1024;
-
+    private KeyRetrieval keyRetrieval;
     private EncryptDecrypt encryptDecrypt;
-    private KeyPair keyPair;
-    private KeyPairGenerator keyPairGenerator;
+    private static final String secret="secret";
+    private Key key;
+    private static final String password ="password";
 
     @Before
-    public void setUp() throws NoSuchAlgorithmException {
-        keyPairGenerator = KeyPairGenerator.getInstance(algorithm);
-        keyPairGenerator.initialize(keySize);
-        keyPair = keyPairGenerator.generateKeyPair();
+    public void setUp() throws SimPrivException {
+        keyRetrieval = mock(KeyRetrieval.class);
         encryptDecrypt = new EncryptDecrypt();
     }
 
     @Test
-    public void encryptShouldReturnCorrectCipherText() throws Exception {
-        String resultString = encryptDecrypt.encrypt(keyPair.getPublic(),passwordString);
-        assertNotEquals(resultString,passwordString);
+    public void decryptShouldReturnCorrectText() throws Exception {
+        String cipher = encryptDecrypt.encrypt(secret,password);
+        System.out.println(cipher);
+        String plainText = encryptDecrypt.decrypt(cipher,password);
+        assertEquals(secret,encryptDecrypt.decrypt(cipher,password));
     }
 
-    @Test
-    public void decryptShouldReturnCorrectPlainText() throws Exception {
-            String resultString = encryptDecrypt.encrypt(keyPair.getPublic(), passwordString);
-            assertEquals(passwordString, encryptDecrypt.decrypt(keyPair.getPrivate(), resultString));
-    }
 
-//    @Test
-//    public void decryptShouldReturnsCorrectPlainText() throws Exception {
-//        String resultString = encryptDecrypt.encrypt(keyPair.getPublic(), null);
-//        assertEquals(passwordString, encryptDecrypt.decrypt(keyPair.getPrivate(), resultString));
-//    }
 }
