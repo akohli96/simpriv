@@ -1,11 +1,13 @@
 package com.simpriv.api.simpriv.utility;
 
 import com.simpriv.api.simpriv.exception.SimPrivException;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -13,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 
+@Component
 public class EncryptDecrypt {
 
     private Cipher cipher;
@@ -33,7 +36,8 @@ public class EncryptDecrypt {
 
 
     public String encrypt(String plainText,String plainKey) throws SimPrivException {
-        Key key = keyRetrieval.retriveKeyFromString(plainKey);
+        byte[] hash = keyRetrieval.getHash(plainKey);
+        Key key = new SecretKeySpec(hash,"AES");
         if(plainText.length()<1) {
             throw new SimPrivException("plainText is 0 character long");
         }
@@ -48,12 +52,13 @@ public class EncryptDecrypt {
             byte[] cipherText = this.cipher.doFinal(plainText.getBytes());
             return Base64.getEncoder().encodeToString(cipherText);
         } catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
+        	System.out.println(e.getMessage());
             throw new SimPrivException(e);
         }
     }
 
     public  String decrypt(String cipherText,String plainKey) throws SimPrivException {
-        Key key = keyRetrieval.retriveKeyFromString(plainKey);
+        Key key = new SecretKeySpec(keyRetrieval.getHash(plainKey),"AES");
         if(cipherText == null){
             throw new SimPrivException("cipherText is null");
         }
