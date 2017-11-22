@@ -10,7 +10,6 @@ import java.util.Base64;
 public class KeyRetrieval {
 
     private MessageDigest digest;
-    private static final String algorithm="AES";
     private static final String hash="SHA-256";
 
     public KeyRetrieval() throws SimPrivException {

@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 import java.util.Base64;
 
 
@@ -26,6 +27,7 @@ public class EncryptDecrypt {
 
     //TODO :@Inject
     public EncryptDecrypt() throws SimPrivException {
+    	Security.setProperty("crypto.policy", "unlimited");
         try {
             this.keyRetrieval=new KeyRetrieval();
             this.cipher = Cipher.getInstance(algorithm);
@@ -36,17 +38,11 @@ public class EncryptDecrypt {
 
 
     public String encrypt(String plainText,String plainKey) throws SimPrivException {
-        byte[] hash = keyRetrieval.getHash(plainKey);
-        Key key = new SecretKeySpec(hash,"AES");
+        Key key = new SecretKeySpec(keyRetrieval.getHash(plainKey),"AES");
         if(plainText.length()<1) {
             throw new SimPrivException("plainText is 0 character long");
-        }
-        else if(plainText == null){
-            throw new SimPrivException("plainText is null");
-        }
-        else if(key == null){
-            throw new SimPrivException("key is null");
-        }
+        } else {
+		}
         try {
             this.cipher.init(Cipher.ENCRYPT_MODE,key);
             byte[] cipherText = this.cipher.doFinal(plainText.getBytes());
@@ -59,9 +55,6 @@ public class EncryptDecrypt {
 
     public  String decrypt(String cipherText,String plainKey) throws SimPrivException {
         Key key = new SecretKeySpec(keyRetrieval.getHash(plainKey),"AES");
-        if(cipherText == null){
-            throw new SimPrivException("cipherText is null");
-        }
         try {
             this.cipher.init(Cipher.DECRYPT_MODE,key);
             byte[] bytes = Base64.getDecoder().decode(cipherText);
