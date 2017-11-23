@@ -1,20 +1,23 @@
 package com.simpriv.api.simpriv.rest;
 
+import com.simpriv.api.simpriv.object.SnippetDTO;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.xml.ws.Response;
+import javax.ws.rs.core.Response;
 
-@Path("message")
+@Path("snippet")
 public interface SnippitEndpoint{
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    Response create(@HeaderParam("private-key") String privateKey, @HeaderParam("public-key") String publicKey, String message);
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    Response getById(@PathParam("id") String id, @HeaderParam("private-key") String privateKey);
+    Response getById(@PathParam("id") String id, @HeaderParam("password") String password);
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	Response create(@HeaderParam("password") String password, @HeaderParam("username") String username, SnippetDTO snippet);
 
 }

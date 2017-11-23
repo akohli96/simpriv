@@ -6,7 +6,7 @@ public class SimPrivException extends Exception{
         super(t);
     }
 
-    public SimPrivException(String s) {
-
+    public SimPrivException(String message) {
+    	super(message);
     }
 }

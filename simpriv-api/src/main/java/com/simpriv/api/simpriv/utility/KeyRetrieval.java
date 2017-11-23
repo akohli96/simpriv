@@ -2,16 +2,17 @@ package com.simpriv.api.simpriv.utility;
 
 import com.simpriv.api.simpriv.exception.SimPrivException;
 
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class KeyRetrieval {
 
     private MessageDigest digest;
-    private static final String algorithm="AES";
     private static final String hash="SHA-256";
 
     public KeyRetrieval() throws SimPrivException {
@@ -21,11 +22,17 @@ public class KeyRetrieval {
             throw new SimPrivException(e);
         }
     }
-    public Key retriveKeyFromString(String text) throws  SimPrivException {
+    public String hashString(String text) throws  SimPrivException {
         if(text == null){
-            throw new SimPrivException("Null key");
+            throw new SimPrivException("Null text");
         }
-        final byte[] hash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
-        return new SecretKeySpec(hash,algorithm);
+        return Base64.getEncoder().encodeToString(digest.digest(text.getBytes(StandardCharsets.UTF_8)));
+    }
+
+    public byte[] getHash(String text) throws  SimPrivException {
+        if(text == null){
+            throw new SimPrivException("Null text");
+        }
+        return digest.digest(text.getBytes(StandardCharsets.UTF_8));
     }
 }
