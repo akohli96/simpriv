@@ -14,13 +14,14 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 
+//TODO: Password checking
 @Component
 public class SnippitEndpointImpl implements SnippitEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(SnippitEndpointImpl.class);
 	
     private SnippitService snippitService;
-    private SnippetAssembler snippetMapper;
+    private SnippetAssembler snippetMapper; //TODO: Move to service layer
 
     @Inject
     public SnippitEndpointImpl(SnippitService snippitService,SnippetAssembler snippetMapper){
