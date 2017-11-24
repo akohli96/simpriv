@@ -1,6 +1,8 @@
 package com.simpriv.api.simpriv.configuration;
 
 import com.simpriv.api.simpriv.rest.SnippitEndpointImpl;
+import com.simpriv.api.simpriv.rest.UserEndpointImpl;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,5 +13,6 @@ import javax.ws.rs.ApplicationPath;
 public class RestConfig extends ResourceConfig{
     public RestConfig(){
         register(SnippitEndpointImpl.class);
+        register(UserEndpointImpl.class);
     }
 }
