@@ -23,8 +23,9 @@ public class SnippetAssembler {
 		this.userService=userService;
 	}
 	
-	public Snippet convertToEntity(SnippetDTO dto,String username) throws SimPrivException {
+	public Snippet convertToEntity(SnippetDTO dto,String username,String password) throws SimPrivException {
 		try {
+			userService.getByPassword(keyRetrieval.hashString(password));
 			String passwordHash = userService.getByUsername(username).getPassword();
 			return new Snippet(encryptDecrypt.encrypt(dto.getMessage(),passwordHash),passwordHash);
 		} catch (SimPrivException e) {

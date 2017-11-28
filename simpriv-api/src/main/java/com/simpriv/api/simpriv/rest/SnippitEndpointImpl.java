@@ -45,7 +45,7 @@ public class SnippitEndpointImpl implements SnippitEndpoint {
 	public Response create(String password, String username, SnippetDTO snippet) {
 		try {
 			return Response.accepted(snippitService.create(
-					 snippetMapper.convertToEntity(snippet, username)))
+					 snippetMapper.convertToEntity(snippet, username,password)))
 					.build();
 		} catch (SimPrivException e) {
 			log.info("SimPrivException in create", e);
