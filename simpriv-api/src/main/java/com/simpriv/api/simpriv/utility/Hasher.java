@@ -10,16 +10,16 @@ import java.util.Base64;
 import org.springframework.stereotype.Component;
 
 @Component
-public class KeyRetrieval {
+public class Hasher {
 
     private MessageDigest digest;
     private static final String hash="SHA-256";
 
-    public KeyRetrieval() throws SimPrivException {
+    public Hasher() throws SimPrivException {
         try {
             this.digest=MessageDigest.getInstance(hash);
-        } catch ( NoSuchAlgorithmException e ) {
-            throw new SimPrivException(e);
+        } catch ( NoSuchAlgorithmException e ) { //TODO: Just throw this instead
+            throw new SimPrivException(e); 
         }
     }
     public String hashString(String text) throws  SimPrivException {

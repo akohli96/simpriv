@@ -23,13 +23,13 @@ public class EncryptDecrypt {
 
     private static final String algorithm="AES";
 
-    private KeyRetrieval keyRetrieval;
+    private Hasher keyRetrieval;
 
     //TODO :@Inject
     public EncryptDecrypt() throws SimPrivException {
     	Security.setProperty("crypto.policy", "unlimited");
         try {
-            this.keyRetrieval=new KeyRetrieval();
+            this.keyRetrieval=new Hasher();
             this.cipher = Cipher.getInstance(algorithm);
         } catch ( NoSuchAlgorithmException | NoSuchPaddingException e ) {
             throw new SimPrivException(e);
