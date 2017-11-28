@@ -18,7 +18,7 @@ public class SnippitServiceImpl implements  SnippitService{
     
     @Override
     public Snippet getById(String id) {
-        return snippetDao.getById(id);
+        return snippetDao.getByID(id);
     }
 
 	@Override

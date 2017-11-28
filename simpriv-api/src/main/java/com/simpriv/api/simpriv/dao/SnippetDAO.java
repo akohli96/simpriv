@@ -6,5 +6,7 @@ public interface SnippetDAO {
 
 	String createSnippet(Snippet snippet);
 
-	Snippet getById(String Id);
+	Snippet getByID(String Id);
+	
+	void delete(String Id);
 }

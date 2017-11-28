@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Component;
 
+import com.simpriv.api.simpriv.dao.SnippetDAO;
 import com.simpriv.api.simpriv.exception.SimPrivException;
 import com.simpriv.api.simpriv.service.UserService;
 import com.simpriv.api.simpriv.utility.EncryptDecrypt;
@@ -15,12 +16,14 @@ public class SnippetAssembler {
 	private EncryptDecrypt encryptDecrypt;
 	private Hasher keyRetrieval;
 	private UserService userService; //TODO : UserDAO
+	private SnippetDAO snippetDAO;
 	
 	@Inject
-	public SnippetAssembler(EncryptDecrypt encryptDecrypt,Hasher keyRetrieval,UserService userService) {
+	public SnippetAssembler(EncryptDecrypt encryptDecrypt,Hasher keyRetrieval,UserService userService,SnippetDAO snippetDAO) {
 		this.encryptDecrypt=encryptDecrypt;
 		this.keyRetrieval=keyRetrieval;
 		this.userService=userService;
+		this.snippetDAO=snippetDAO;
 	}
 	
 	public Snippet convertToEntity(SnippetDTO dto,String username,String password) throws SimPrivException {
@@ -38,6 +41,7 @@ public class SnippetAssembler {
 			throw new SimPrivException("SnippetAssembler: Incorreect password for message ID " + snippet.getId());
 		}
 		try {
+			snippetDAO.delete(snippet.getId());
 			return new SnippetDTO(encryptDecrypt.decrypt(snippet.getMessage(), snippet.getHash()));
 		} catch (SimPrivException e) {
 			throw new SimPrivException(e);

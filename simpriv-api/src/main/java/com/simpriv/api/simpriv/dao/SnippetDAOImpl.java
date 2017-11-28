@@ -15,6 +15,7 @@ public class SnippetDAOImpl implements SnippetDAO {
 	
 	private static final String insertQuery = "INSERT INTO SNIPPET " + "(MESSAGE_TEXT,PASSWORD_HASH,URL_LINK) VALUES (?, ?, ?)";
 	private static final String selectQuery = "SELECT * FROM SNIPPET WHERE URL_LINK = ?";
+	private static final String deleteQuery = "DELETE FROM SNIPPET WHERE URL_LINK = ?";
 	
 	@Inject
 	public SnippetDAOImpl(JdbcTemplate jdbcTemplate,SnippetRowMapper snippetRowMapper) {
@@ -29,8 +30,13 @@ public class SnippetDAOImpl implements SnippetDAO {
 	}
 
 	@Override
-	public Snippet getById(String Id) {
+	public Snippet getByID(String Id) {
 		return jdbcTemplate.queryForObject(selectQuery, new Object[] {Id}, snippetRowMapper );
+	}
+
+	@Override
+	public void delete(String Id) {
+		jdbcTemplate.update(deleteQuery,new Object[] {Id});
 	}
 
 }
