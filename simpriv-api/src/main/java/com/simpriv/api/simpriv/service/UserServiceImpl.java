@@ -38,6 +38,10 @@ public class UserServiceImpl implements UserService{
 	public User getByUsername(String username) throws SimPrivException {
 		return userDAO.getByUsername(username);
 	}
-	
+
+	@Override
+	public User getByPassword(String password) throws SimPrivException {
+		return userDAO.getByPassword(password);
+	}
 	
 }
