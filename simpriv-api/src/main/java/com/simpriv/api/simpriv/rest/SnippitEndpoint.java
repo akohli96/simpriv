@@ -17,7 +17,7 @@ public interface SnippitEndpoint{
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
 	Response create(@HeaderParam("password") String password, @HeaderParam("username") String username, SnippetDTO snippet);
 
 }
