@@ -1,8 +1,9 @@
-package com.simpriv.api.simpriv.dao.user;
+package com.simpriv.api.simpriv.infrastructure.user;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.simpriv.api.simpriv.domain.user.User;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

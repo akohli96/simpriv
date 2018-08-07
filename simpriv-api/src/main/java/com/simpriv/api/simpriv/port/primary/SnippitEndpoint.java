@@ -1,6 +1,8 @@
-package com.simpriv.api.simpriv.rest;
+package com.simpriv.api.simpriv.port.primary;
 
-import com.simpriv.api.simpriv.object.SnippetDTO;
+import com.simpriv.api.simpriv.application.snippet.SnippetDTO;
+import com.simpriv.api.simpriv.application.user.UserFilterBean;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,6 +20,6 @@ public interface SnippitEndpoint{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-	Response create(@HeaderParam("password") String password, @HeaderParam("username") String username, SnippetDTO snippet);
+	Response create(@HeaderParam("password") String password, @HeaderParam("username") String username);
 
 }

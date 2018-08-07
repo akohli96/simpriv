@@ -1,11 +1,11 @@
-package com.simpriv.api.simpriv.dao;
+package com.simpriv.api.simpriv.infrastructure.snippet;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import com.simpriv.api.simpriv.object.Snippet;
+import com.simpriv.api.simpriv.domain.snippet.Snippet;
 
 @Component
 public class SnippetRowMapper implements RowMapper<Snippet>{

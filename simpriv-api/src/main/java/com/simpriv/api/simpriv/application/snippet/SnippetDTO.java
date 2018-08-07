@@ -1,4 +1,4 @@
-package com.simpriv.api.simpriv.object;
+package com.simpriv.api.simpriv.application.snippet;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

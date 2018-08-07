@@ -1,9 +1,8 @@
-package com.simpriv.api.simpriv.service;
+package com.simpriv.api.simpriv.domain.user;
 
 import java.util.List;
 
-import com.simpriv.api.simpriv.dao.user.User;
-import com.simpriv.api.simpriv.dao.user.dto.UserDTO;
+import com.simpriv.api.simpriv.application.user.UserDTO;
 import com.simpriv.api.simpriv.exception.SimPrivException;
 
 public interface UserService {

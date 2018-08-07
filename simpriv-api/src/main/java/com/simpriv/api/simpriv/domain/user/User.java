@@ -1,4 +1,7 @@
-package com.simpriv.api.simpriv.dao.user;
+package com.simpriv.api.simpriv.domain.user;
+
+
+import com.simpriv.api.simpriv.application.user.UserDTO;
 
 import java.util.UUID;
 
@@ -24,5 +27,9 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+
+	public UserDTO convertToDTO(){
+	    return new UserDTO(this.name);
+    }
 
 }

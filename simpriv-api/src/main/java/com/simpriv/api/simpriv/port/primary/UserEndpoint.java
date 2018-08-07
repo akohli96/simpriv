@@ -1,11 +1,12 @@
-package com.simpriv.api.simpriv.rest;
+package com.simpriv.api.simpriv.port.primary;
 
+
+import com.simpriv.api.simpriv.application.user.UserDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.simpriv.api.simpriv.dao.user.dto.UserDTO;
 
 @Path("users")
 public interface UserEndpoint{

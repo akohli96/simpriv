@@ -2,11 +2,13 @@ package com.simpriv.api.simpriv.object;
 
 import javax.inject.Inject;
 
+import com.simpriv.api.simpriv.application.snippet.SnippetDTO;
+import com.simpriv.api.simpriv.domain.snippet.Snippet;
+import com.simpriv.api.simpriv.domain.snippet.SnippetRepository;
+import com.simpriv.api.simpriv.domain.user.UserService;
 import org.springframework.stereotype.Component;
 
-import com.simpriv.api.simpriv.dao.SnippetDAO;
 import com.simpriv.api.simpriv.exception.SimPrivException;
-import com.simpriv.api.simpriv.service.UserService;
 import com.simpriv.api.simpriv.utility.EncryptDecrypt;
 import com.simpriv.api.simpriv.utility.Hasher;
 
@@ -15,18 +17,18 @@ public class SnippetAssembler {
 
 	private EncryptDecrypt encryptDecrypt;
 	private Hasher keyRetrieval;
-	private UserService userService; //TODO : UserDAO
-	private SnippetDAO snippetDAO;
+	private UserService userService;
+	private SnippetRepository snippetRepository;
 	
 	@Inject
-	public SnippetAssembler(EncryptDecrypt encryptDecrypt,Hasher keyRetrieval,UserService userService,SnippetDAO snippetDAO) {
+	public SnippetAssembler(EncryptDecrypt encryptDecrypt,Hasher keyRetrieval,UserService userService,SnippetRepository snippetRepository) {
 		this.encryptDecrypt=encryptDecrypt;
 		this.keyRetrieval=keyRetrieval;
 		this.userService=userService;
-		this.snippetDAO=snippetDAO;
+		this.snippetRepository=snippetRepository;
 	}
 	
-	public Snippet convertToEntity(SnippetDTO dto,String username,String password) throws SimPrivException {
+	public Snippet convertToEntity(SnippetDTO dto, String username, String password) throws SimPrivException {
 		try {
 			userService.getByPassword(keyRetrieval.hashString(password));
 			String passwordHash = userService.getByUsername(username).getPassword();
@@ -41,7 +43,7 @@ public class SnippetAssembler {
 			throw new SimPrivException("SnippetAssembler: Incorreect password for message ID " + snippet.getId());
 		}
 		try {
-			snippetDAO.delete(snippet.getId());
+			snippetRepository.delete(snippet.getId());
 			return new SnippetDTO(encryptDecrypt.decrypt(snippet.getMessage(), snippet.getHash()));
 		} catch (SimPrivException e) {
 			throw new SimPrivException(e);

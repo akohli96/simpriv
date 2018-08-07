@@ -1,4 +1,4 @@
-package com.simpriv.api.simpriv.dao.user.dto;
+package com.simpriv.api.simpriv.application.user;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
