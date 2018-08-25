@@ -14,9 +14,23 @@ public class SnippetRepositoryImpl implements SnippetRepository {
 	private JdbcTemplate jdbcTemplate;
 	private SnippetRowMapper snippetRowMapper;
 	
-	private static final String insertQuery = "INSERT INTO SNIPPET " + "(MESSAGE_TEXT,URL_LINK,USER_FROM,USER_TO) VALUES (?, ?, ?, ?)";
-	private static final String selectQuery = "SELECT * FROM SNIPPET WHERE URL_LINK = ?";
-	private static final String deleteQuery = "DELETE FROM SNIPPET WHERE URL_LINK = ?";
+	private static final String insertQuery =  "INSERT INTO SNIPPET " + "(MESSAGE,UUID,USER_FROM,USER_TO) VALUES (?, ?, ?, ?)";
+
+	private static final String selectQuery =  "SELECT\n" +
+            "  SNIPPET.UUID as UUID,\n" +
+            "  SNIPPET.MESSAGE as MESSAGE,\n" +
+			"  SNIPPET.USER_TO as USER_TO_USERNAME,\n" +
+			"  USERTO.PASSWORD as USER_TO_PASSWORD,\n" +
+			"  SNIPPET.USER_FROM as USER_FROM_USERNAME,\n" +
+			"  USERFROM.PASSWORD as USER_FROM_PASSWORD\n" +
+			"  FROM\n" +
+			"  SNIPPET\n" +
+			"  INNER JOIN USERS USERTO ON SNIPPET.USER_TO = USERTO.USERNAME\n" +
+			"  INNER JOIN USERS USERFROM ON SNIPPET.USER_FROM = USERFROM.USERNAME\n" +
+			"  WHERE\n" +
+			"  SNIPPET.UUID = ?";
+
+	private static final String deleteQuery = "DELETE FROM SNIPPET WHERE UUID = ?";
 	
 	@Inject
 	public SnippetRepositoryImpl(JdbcTemplate jdbcTemplate,SnippetRowMapper snippetRowMapper) {

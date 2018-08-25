@@ -1,19 +1,16 @@
 package com.simpriv.api.domain.snippet;
 
 import com.simpriv.api.domain.user.User;
+import com.simpriv.api.port.primary.dto.SnippetDTO;
 import com.simpriv.api.utility.EncryptDecryptException;
 import com.simpriv.api.utility.EncryptDecrypt;
-
-import java.util.UUID;
 
 public class Snippet {
 
 	private String id;
     private String message;
-    private String hash;
     private User sender;
     private User receiver;
-    private EncryptDecrypt encryptDecrypt;
 
     public Snippet(User sender, User receiver, String message,String Id){
         this.sender=sender;
@@ -22,14 +19,7 @@ public class Snippet {
         this.id=Id;
     }
 
-    public Snippet(User sender, User receiver, String message){
-        this.sender=sender;
-        this.receiver=receiver;
-        this.message=message;
-        this.id=UUID.randomUUID().toString();
-    }
-
-    public Snippet encrypt(){
+    public Snippet encrypt(EncryptDecrypt encryptDecrypt){
         try {
             this.message=encryptDecrypt.encrypt(this.message,receiver.getPassword());
         } catch (SnippetException e) {
@@ -38,7 +28,7 @@ public class Snippet {
         return this;
     }
 
-    public Snippet decrypt(User unverifiedReceiver){
+    public Snippet decrypt(User unverifiedReceiver,EncryptDecrypt encryptDecrypt){
         if(!this.receiver.getName().equals(unverifiedReceiver.getName())){
             throw new SnippetException("Incorrect Name");
         }
@@ -47,7 +37,7 @@ public class Snippet {
         }
 
         try {
-            encryptDecrypt.decrypt(message,unverifiedReceiver.getPassword());
+            this.message=encryptDecrypt.decrypt(message,unverifiedReceiver.getPassword());
         } catch (EncryptDecryptException e) {
             e.printStackTrace();
         }
@@ -62,15 +52,15 @@ public class Snippet {
         return this.message;
     }
 
-    public String getHash() {
-        return this.hash;
-    }
-
     public User getSender(){
         return this.sender;
     }
 
     public User getReceiver(){
         return this.receiver;
+    }
+
+    public SnippetDTO toDTO(){
+        return new SnippetDTO(this.message);
     }
 }

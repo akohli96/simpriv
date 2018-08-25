@@ -22,9 +22,18 @@ public class SimprivApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		String snippet = "CREATE TABLE SNIPPET(\n" +
+				"  MESSAGE varchar(255),\n" +
+				"  UUID varchar(255) primary key,\n" +
+				"  USER_FROM varchar (255),\n" +
+				"  USER_TO varchar (255)\n" +
+				")";
 		log.info("Creating tables");
-		jdbcTemplate.execute("CREATE TABLE users(username varchar(255) primary key, password_hash varchar(255) unique)");
-		jdbcTemplate.execute("CREATE TABLE snippet(message_text varchar(255), password_hash varchar(255) unique, url_link varchar(255) unique, user_from varchar (255), user_to varchar (255)");
+		jdbcTemplate.execute("CREATE TABLE USERS(\n" +
+				"  USERNAME varchar(255) primary key,\n" +
+				"  PASSWORD varchar(255) unique\n" +
+				")");
+		jdbcTemplate.execute(snippet);
 		log.info("Tables created");
 	}
 

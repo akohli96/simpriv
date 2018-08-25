@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User create(UserCreateCommand UserCreateCommand) {
-		return userRepository.create(UserCreateCommand);
+	public User create(UserCreateCommand userCreateCommand) {
+		return userRepository.create(new User(userCreateCommand.getName()));
 	}
 
 	@Override

@@ -1,12 +1,13 @@
 package com.simpriv.api.application.snippet;
 
-import com.simpriv.api.domain.snippet.Snippet;
 import com.simpriv.api.domain.user.User;
+import com.simpriv.api.port.primary.dto.SnippetCreateCommand;
+import com.simpriv.api.port.primary.dto.SnippetDTO;
 
 public interface SnippitService {
 
-	String sendMessage(User sender, User receiver, String message);
+	SnippetDTO getByID(User unverifiedReceiver, String Id);
 
-	Snippet getByID(User unverifiedReceiver, String Id);
+	String sendMessage(User sender, SnippetCreateCommand snippetCreateCommand);
 
 }

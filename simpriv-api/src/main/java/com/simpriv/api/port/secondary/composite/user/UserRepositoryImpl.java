@@ -16,9 +16,9 @@ import com.simpriv.api.utility.Hasher;
 public class UserRepositoryImpl implements UserRepository {
 
 	private static final String getAllQuery="SELECT * FROM USERS";
-	private static final String insertQuery="INSERT INTO USERS (USERNAME ,PASSWORD_HASH) VALUES (?, ?)";
-	private static final String getByUsernameQuery="SELECT USER * FROM USERS WHERE USERNAME = ?";
-	private static final String getByPasswordQuery="SELECT USER * FROM USERS WHERE PASSWORD_HASH = ?";
+	private static final String insertQuery="INSERT INTO USERS (USERNAME ,PASSWORD) VALUES (?, ?)";
+	private static final String getByUsernameQuery="SELECT * FROM USERS WHERE USERNAME = ?";
+	private static final String getByPasswordQuery="SELECT * FROM USERS WHERE PASSWORD = ?";
 	
 	private JdbcTemplate jdbcTemplate;
 	private Hasher keyRetrieval;
@@ -37,10 +37,9 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public User create(UserCreateCommand userDTO) {
+	public User create(User user) {
 		try {
-			User user = new User(userDTO.getName());
-			jdbcTemplate.update(insertQuery, user.getName());
+			jdbcTemplate.update(insertQuery, user.getName(),user.getPassword());
 			return user;
 		} catch (DataAccessException e ) {
 			throw new UserRepositoryException(e);
