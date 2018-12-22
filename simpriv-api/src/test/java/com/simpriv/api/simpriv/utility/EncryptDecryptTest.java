@@ -1,6 +1,6 @@
 package com.simpriv.api.simpriv.utility;
 
-import com.simpriv.api.simpriv.exception.SimPrivException;
+import main.java.com.simpriv.api.exception.SimPrivException;
 import org.junit.Before;
 import org.junit.Test;
 
