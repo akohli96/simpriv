@@ -1,9 +1,12 @@
 package com.simpriv.api.domain.snippet;
 
 import com.simpriv.api.domain.user.User;
+import com.simpriv.api.port.primary.dto.SnippetCreateCommand;
 import com.simpriv.api.port.primary.dto.SnippetDTO;
 import com.simpriv.api.utility.EncryptDecryptException;
 import com.simpriv.api.utility.EncryptDecrypt;
+
+import java.util.UUID;
 
 public class Snippet {
 
@@ -17,6 +20,10 @@ public class Snippet {
         this.receiver=receiver;
         this.message=message;
         this.id=Id;
+    }
+
+    public static Snippet sendMessageSnippetEntity(User sender, User receiver, SnippetCreateCommand createCommand){
+        return new Snippet(sender,receiver, createCommand.getMessage(), UUID.randomUUID().toString());
     }
 
     public Snippet encrypt(EncryptDecrypt encryptDecrypt){

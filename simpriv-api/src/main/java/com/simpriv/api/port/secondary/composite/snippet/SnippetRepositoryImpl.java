@@ -14,19 +14,23 @@ public class SnippetRepositoryImpl implements SnippetRepository {
 	private JdbcTemplate jdbcTemplate;
 	private SnippetRowMapper snippetRowMapper;
 	
-	private static final String insertQuery =  "INSERT INTO SNIPPET " + "(MESSAGE,UUID,USER_FROM,USER_TO) VALUES (?, ?, ?, ?)";
+	private static final String insertQuery =  "INSERT INTO SNIPPET " + "(MESSAGE,UUID,SENDER,RECEIVER) VALUES (?, ?, ?, ?)";
 
 	private static final String selectQuery =  "SELECT\n" +
             "  SNIPPET.UUID as UUID,\n" +
             "  SNIPPET.MESSAGE as MESSAGE,\n" +
-			"  SNIPPET.USER_TO as USER_TO_USERNAME,\n" +
-			"  USERTO.PASSWORD as USER_TO_PASSWORD,\n" +
-			"  SNIPPET.USER_FROM as USER_FROM_USERNAME,\n" +
-			"  USERFROM.PASSWORD as USER_FROM_PASSWORD\n" +
+			"  SNIPPET.RECEIVER as RECEIVER_USERNAME,\n" +
+			"  RECEIVER.PASSWORD as RECEIVER_PASSWORD,\n" +
+			"  RECEIVER.ENABLED as RECEIVER_ENABLED\n" +
+			"  RECEIVER.ROLE as RECEIVER_ROLE\n" +
+			"  SENDER.ROLE as SENDER_ROLE\n" +
+			"  SNIPPET.SENDER as SENDER_USERNAME,\n" +
+			"  SENDER.PASSWORD as SENDER_PASSWORD\n" +
+			"  SENDER.ENABLED as SENDER_ENABLED\n" +
 			"  FROM\n" +
 			"  SNIPPET\n" +
-			"  INNER JOIN USERS USERTO ON SNIPPET.USER_TO = USERTO.USERNAME\n" +
-			"  INNER JOIN USERS USERFROM ON SNIPPET.USER_FROM = USERFROM.USERNAME\n" +
+			"  INNER JOIN USERS RECEIVER ON SNIPPET.RECEIVER = RECEIVER.USERNAME\n" +
+			"  INNER JOIN USERS SENDER ON SNIPPET.SENDER = SENDER.USERNAME\n" +
 			"  WHERE\n" +
 			"  SNIPPET.UUID = ?";
 

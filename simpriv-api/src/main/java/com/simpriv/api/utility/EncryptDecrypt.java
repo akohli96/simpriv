@@ -47,7 +47,6 @@ public class EncryptDecrypt {
             byte[] cipherText = this.cipher.doFinal(plainText.getBytes());
             return Base64.getEncoder().encodeToString(cipherText);
         } catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-        	System.out.println(e.getMessage());
             throw new EncryptDecryptException(e);
         }
     }

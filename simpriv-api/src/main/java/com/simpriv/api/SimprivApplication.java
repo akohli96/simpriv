@@ -25,15 +25,18 @@ public class SimprivApplication implements CommandLineRunner{
 		String snippet = "CREATE TABLE SNIPPET(\n" +
 				"  MESSAGE varchar(255),\n" +
 				"  UUID varchar(255) primary key,\n" +
-				"  USER_FROM varchar (255),\n" +
-				"  USER_TO varchar (255)\n" +
+				"  SENDER varchar (255),\n" +
+				"  RECEIVER varchar (255)\n" +
 				")";
 		log.info("Creating tables");
 		jdbcTemplate.execute("CREATE TABLE USERS(\n" +
 				"  USERNAME varchar(255) primary key,\n" +
+				"  ENABLED BOOLEAN,\n" +
+				"  ROLE varchar(45),\n" +
 				"  PASSWORD varchar(255) unique\n" +
 				")");
 		jdbcTemplate.execute(snippet);
+
 		log.info("Tables created");
 	}
 

@@ -8,7 +8,7 @@ public class SnippetCreateCommand extends SnippetDTO {
     private String receiver;
 
     @JsonCreator
-    public SnippetCreateCommand(String message,@JsonProperty("receiver") String receiver)
+    public SnippetCreateCommand(@JsonProperty("message") String message,@JsonProperty("receiver") String receiver)
     {
         super(message);
         this.receiver=receiver;

@@ -1,15 +1,16 @@
 package com.simpriv.api.application.user;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 
 import javax.inject.Inject;
+
+import com.simpriv.api.domain.user.UserService;
 import org.springframework.stereotype.Component;
 
 import com.simpriv.api.domain.user.User;
 import com.simpriv.api.domain.user.UserRepository;
 import com.simpriv.api.port.primary.dto.UserCreateCommand;
-
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -25,12 +26,12 @@ public class UserServiceImpl implements UserService {
 	public List<UserCreateCommand> getAll() {
 	   return userRepository.getAll().stream()
                .map(User::convertToDTO)
-               .collect(Collectors.toList());
+               .collect(toList());
 	}
 
 	@Override
 	public User create(UserCreateCommand userCreateCommand) {
-		return userRepository.create(new User(userCreateCommand.getName()));
+		return userRepository.create(User.createUserFromCreateCommand(userCreateCommand));
 	}
 
 	@Override
