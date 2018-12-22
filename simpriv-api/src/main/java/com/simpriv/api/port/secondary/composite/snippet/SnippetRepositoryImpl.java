@@ -16,23 +16,22 @@ public class SnippetRepositoryImpl implements SnippetRepository {
 	
 	private static final String insertQuery =  "INSERT INTO SNIPPET " + "(MESSAGE,UUID,SENDER,RECEIVER) VALUES (?, ?, ?, ?)";
 
-	private static final String selectQuery =  "SELECT\n" +
-            "  SNIPPET.UUID as UUID,\n" +
-            "  SNIPPET.MESSAGE as MESSAGE,\n" +
-			"  SNIPPET.RECEIVER as RECEIVER_USERNAME,\n" +
-			"  RECEIVER.PASSWORD as RECEIVER_PASSWORD,\n" +
-			"  RECEIVER.ENABLED as RECEIVER_ENABLED\n" +
-			"  RECEIVER.ROLE as RECEIVER_ROLE\n" +
-			"  SENDER.ROLE as SENDER_ROLE\n" +
-			"  SNIPPET.SENDER as SENDER_USERNAME,\n" +
-			"  SENDER.PASSWORD as SENDER_PASSWORD\n" +
-			"  SENDER.ENABLED as SENDER_ENABLED\n" +
-			"  FROM\n" +
-			"  SNIPPET\n" +
-			"  INNER JOIN USERS RECEIVER ON SNIPPET.RECEIVER = RECEIVER.USERNAME\n" +
-			"  INNER JOIN USERS SENDER ON SNIPPET.SENDER = SENDER.USERNAME\n" +
-			"  WHERE\n" +
-			"  SNIPPET.UUID = ?";
+	private static final String selectQuery =  "select snippet.uuid as uuid, \n" +
+			"snippet.message as message,\n" +
+			"snippet.receiver as receiver_username,\n" +
+			"receiver.password as receiver_password,\n" +
+			"receiver.enabled as receiver_enabled,\n" +
+			"receiver.role as receiver_role,\n" +
+			"sender.role as sender_role,\n" +
+			"sender.password as sender_password,\n" +
+			"sender.enabled as sender_enabled,\n" +
+			"snippet.sender as sender_username\n" +
+			"from \n" +
+			"snippet\n" +
+			"inner join users receiver on snippet.receiver = receiver.username\n" +
+			"inner join users sender on snippet.sender = sender.username\n" +
+			"where \n" +
+			"snippet.uuid  = ?";
 
 	private static final String deleteQuery = "DELETE FROM SNIPPET WHERE UUID = ?";
 	
