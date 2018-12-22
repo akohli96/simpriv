@@ -23,6 +23,7 @@ public class User {
 		this.password=UUID.randomUUID().toString();
 		this.enabled=ENABLED;
 		grantedAuthorities = Collections.singleton(new SimpleGrantedAuthority(ROLE));
+		//
 	}
 
 	public static User createUserFromCreateCommand(UserCreateCommand command){
