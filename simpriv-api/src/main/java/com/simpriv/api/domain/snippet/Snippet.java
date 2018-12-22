@@ -30,7 +30,7 @@ public class Snippet {
         try {
             this.message=encryptDecrypt.encrypt(this.message,receiver.getPassword());
         } catch (SnippetException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO : Change
         }
         return this;
     }
@@ -46,7 +46,7 @@ public class Snippet {
         try {
             this.message=encryptDecrypt.decrypt(message,unverifiedReceiver.getPassword());
         } catch (EncryptDecryptException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO : Change
         }
         return this;
     }

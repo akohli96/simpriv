@@ -1,4 +1,4 @@
-package com.simpriv.api.domain.user.custom;
+package com.simpriv.api.application.user.custom;
 
 import com.simpriv.api.domain.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

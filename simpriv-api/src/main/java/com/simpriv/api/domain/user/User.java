@@ -1,5 +1,6 @@
 package com.simpriv.api.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.simpriv.api.port.primary.dto.UserCreateCommand;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +13,6 @@ public class User {
 
 	private String name;
 	private String password;
-	private String role;
 	private boolean enabled;
 	private static final String ROLE = "ROLE_USER";
 	private static final boolean ENABLED = true;
@@ -21,20 +21,18 @@ public class User {
 	public User(String name) {
 		this.name=name;
 		this.password=UUID.randomUUID().toString();
-		this.role=ROLE;
 		this.enabled=ENABLED;
-		grantedAuthorities = Collections.singleton(new SimpleGrantedAuthority(role));
+		grantedAuthorities = Collections.singleton(new SimpleGrantedAuthority(ROLE));
 	}
 
 	public static User createUserFromCreateCommand(UserCreateCommand command){
 		return new User(command.getName());
 	}
 
-	//For Database Hydration Only
+	//For Database Only
 	public User(String name,String password, String role, boolean enabled) {
 		this.name=name;
 		this.password=password;
-		this.role=role;
 		this.enabled=enabled;
 		grantedAuthorities = Collections.singleton(new SimpleGrantedAuthority(role));
 	}
@@ -48,13 +46,15 @@ public class User {
 	}
 
 	public String getRole() {
-		return role;
+		return grantedAuthorities.stream().findFirst().get().getAuthority();
 	}
 
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities(){
 		return grantedAuthorities;
 	}
 
+	@JsonIgnore
 	public boolean isEnabled() {
 		return enabled;
 	}
