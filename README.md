@@ -1,6 +1,6 @@
 # SimPriv-API
 
-## SimPriv-API a.k.a SimPriv is a REST based API for exchanging notes a.k.a snippet originally developed by Utsav Dhungel and Ayush Kohli.
+ SimPriv-API a.k.a SimPriv is a REST based API for exchanging notes a.k.a snippet originally developed by Utsav Dhungel and Ayush Kohli.
 
 ## Introduction
 
